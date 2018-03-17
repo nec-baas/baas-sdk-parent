@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <prerequisites>
+        <maven>3.0.5</maven>
+    </prerequisites>
+
+    <groupId>com.nec.baas.sdk</groupId>
+    <artifactId>baas-sdk-parent</artifactId>
+    <version>7.0.0</version>
+    <packaging>pom</packaging>
+    <name>NEC BaaS Java SDK Parent POM</name>
+    <description>NEC Mobile Backend Platform Java SDK Parent POM</description>
+    <url>https://github.com/nec-baas/baas-sdk-parent</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>NEC Corporation</name>
+        <url>http://jpn.nec.com</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>nec-baas</id>
+            <name>NEC Mobile Backend Platform</name>
+            <organization>NEC Corporation</organization>
+            <organizationUrl>http://jpn.nec.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/nec-baas/baas-sdk-parent</url>
+        <connection>scm:git:https://github.com/nec-baas/baas-sdk-parent.git</connection>
+        <developerConnection>scm:git:git@github.com:nec-baas/baas-sdk-parent.git</developerConnection>
+    </scm>
+
+    <repositories>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <profiles>
+        <!-- Internal maven repo -->
+        <!-- To use this, set properties in ~/.m2/settings.xml. -->
+        <profile>
+            <id>internal</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <repositories>
+                <repository>
+                    <id>internal</id>
+                    <url>${internal-repo.url}</url>
+                </repository>
+                <repository>
+                    <id>internal-snapshots</id>
+                    <url>${internal-snapshot-repo.url}</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+
+            <distributionManagement>
+                <repository>
+                    <id>internal</id>
+                    <url>${internal-repo.url}</url>
+                </repository>
+                <snapshotRepository>
+                    <id>internal</id>
+                    <url>${internal-snapshot-repo.url}</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+
+        <!-- For release to maven central -->
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+
+            <build>
+                <plugins>
+                    <!-- gpg signing -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- ossrh: maven central -->
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.8</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
