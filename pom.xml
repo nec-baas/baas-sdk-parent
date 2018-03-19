@@ -8,7 +8,7 @@
 
     <groupId>com.nec.baas.sdk</groupId>
     <artifactId>baas-sdk-parent</artifactId>
-    <version>7.0.0</version>
+    <version>7.0.1</version>
     <packaging>pom</packaging>
     <name>NEC BaaS Java SDK Parent POM</name>
     <description>NEC Mobile Backend Platform Java SDK Parent POM</description>
@@ -16,8 +16,8 @@
 
     <licenses>
         <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <name>2-Clause BSD License</name>
+            <url>https://opensource.org/licenses/BSD-2-Clause</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
