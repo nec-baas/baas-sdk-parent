@@ -16,8 +16,8 @@
 
     <licenses>
         <license>
-            <name>2-Clause BSD License</name>
-            <url>https://opensource.org/licenses/BSD-2-Clause</url>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
